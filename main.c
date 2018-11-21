@@ -18,43 +18,41 @@ char ** parse_args(char * line) {
     return parsed_args;
 }
 
-void fork() {
-	printf("Initial Message from Parent\n");
-    int fork_val;
-    if(fork_val = fork()) { //if parent
-        fork_val = fork(); //fork again
-    }
-
-    if (fork_val == 0) { //if child
-        printf("Child pid: %i\n", getpid());
-        int * num = malloc(sizeof(int));
-        int fd = open("/dev/random", O_RDONLY);
-        read(fd, num, sizeof(int));
-        int temp =  abs(*num % 16) + 5;
-        sleep(temp);
-        printf("Child Program with child process num: %i has ended\n", getpid());
-        close(fd);
-        exit(temp);
-    }
-
-    if (fork_val != 0) { //if parent
-        int status;
-        int pid = wait(&status);
-        if(WIFEXITED(status)) {
-            int sec = WEXITSTATUS(status);
-            printf("Parent Program has ended after child pid num %i who snoozed for %i secs\n", pid, sec);
-        }
+void print_arr(char ** args) {
+    int i = 0;
+    while (args[i]) {
+        printf("thing * index %i : %s\n", i, args[i]);
+        i++;
     }
 }
 
 void okb_looping() {
-    char * buff = malloc(
-    while (1) {
+    while(1){
+        char * buff = malloc(sizeof(char) * 100);
         printf("oshkoshbogosh: \n");
-        fgets(
+        fgets(buff, 100, stdin);
+        
+        char * c = buff;
+        while(*c != '\n' && *c) {
+            c++;
+        }
+        *c = '\0';
 
+        char ** args = parse_args(buff);
+        //print_arr(args);
+        int fork_val = fork();
+        if (fork_val == 0) { //if child
+            execvp(args[0], args);
+            exit(0);
+        }
 
-
+        if (fork_val != 0) { //if parent
+            int status;
+            wait(&status);
+            continue;
+        }
+        free(buff);
+    }
 }
 
 int main() {
