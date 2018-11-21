@@ -26,6 +26,18 @@ void print_arr(char ** args) {
     }
 }
 
+void execer(char ** args) {
+    if(strcmp(args[0], "cd") == 0) {
+        chdir(args[1]);
+        printf("errno: %i", errno);
+    } else if(strcmp(args[0], "exit") == 0) {
+        printf("exiting\n");
+
+    } else {
+        execvp(args[0], args);
+    }
+}
+
 void okb_looping() {
     while(1){
         char * buff = malloc(sizeof(char) * 100);
@@ -42,7 +54,7 @@ void okb_looping() {
         //print_arr(args);
         int fork_val = fork();
         if (fork_val == 0) { //if child
-            execvp(args[0], args);
+            execer(args);
             exit(0);
         }
 
