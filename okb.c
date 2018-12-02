@@ -22,6 +22,7 @@ void okb_looping() {
         char ** cmds = parse_args(buff, ";");
         char ** args;
         int i = 0;
+        int fd = 0;
         while (cmds[i]) {
             if(strcmp(cmds[0], "cd") == 0) {
                 chdir(cmds[1]);
@@ -32,8 +33,14 @@ void okb_looping() {
                 if (fork_val == 0) { //if child
                     if(strchr(cmds[i], '>')) { //< is found
                         char ** parts = parse_args(cmds[i], ">");
-                        int fd = open(parts[1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+                        fd = open(parts[1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
                         dup2(fd, STDOUT_FILENO);
+                        args = parse_args(parts[0], " ");
+                        execvp(args[0], args);
+                    } else if (strchr(cmds[i], '<')) {
+                        char ** parts = parse_args(cmds[i], "<");
+                        fd = open(parts[1], O_RDONLY);
+                        dup2(fd, STDIN_FILENO);
                         args = parse_args(parts[0], " ");
                         execvp(args[0], args);
                     } else {
