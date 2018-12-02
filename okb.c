@@ -20,17 +20,26 @@ void okb_looping() {
         *c = '\0';
        
         char ** cmds = parse_args(buff, ";");
+        char ** args;
         int i = 0;
         while (cmds[i]) {
-            char ** args = parse_args(cmds[i], " ");
-            if(strcmp(args[0], "cd") == 0) {
-                chdir(args[1]);
-            } else if(strcmp(args[0], "exit") == 0) {
+            if(strcmp(cmds[0], "cd") == 0) {
+                chdir(cmds[1]);
+            } else if(strcmp(cmds[0], "exit") == 0) {
                 exit(0);
             } else { 
                 int fork_val = fork();
                 if (fork_val == 0) { //if child
-                    execvp(args[0], args);
+                    if(strchr(cmds[i], '>')) { //< is found
+                        char ** parts = parse_args(cmds[i], ">");
+                        int fd = open(parts[1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+                        dup2(fd, STDOUT_FILENO);
+                        args = parse_args(parts[0], " ");
+                        execvp(args[0], args);
+                    } else {
+                        args = parse_args(cmds[i], " ");
+                        execvp(args[0], args);
+                    }
                 }
 
                 if (fork_val != 0) { //if parent

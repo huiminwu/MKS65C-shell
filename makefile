@@ -11,4 +11,4 @@ main.o: main.c okb.h
 	gcc -c main.c
 
 run:
-	./a.out
+	./Shell
