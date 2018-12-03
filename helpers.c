@@ -31,6 +31,14 @@ char ** parse_args(char * line, char * delimiter) {
         parsed_args[index] = strsep(&p, delimiter);
         index++; 
     }
+    int i = 0;
+    while(parsed_args[i]) {
+        while(parsed_args[strlen(parsed_args[i]) - 1] == ' ') {
+            //strip end
+        }
+        //strin white space off end
+        i++;
+    }
     return parsed_args;
 }
 
