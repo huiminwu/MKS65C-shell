@@ -1,14 +1,11 @@
-all: helpers.o okb.o main.o
-	gcc -o Shell helpers.o okb.o main.o
+all: helpers.o okb.o
+	gcc -o Shell helpers.o okb.o
 
 helpers.o: helpers.c helpers.h
 	gcc -c helpers.c
 
-okb.o: okb.c okb.h helpers.h
+okb.o: okb.c helpers.h
 	gcc -c okb.c
-
-main.o: main.c okb.h
-	gcc -c main.c
 
 run:
 	./Shell

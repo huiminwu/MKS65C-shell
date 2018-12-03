@@ -9,6 +9,20 @@
 #define READ 0
 #define WRITE 1
 
+/*****************************************************************
+ * Separates parts of a line with delimiter
+ *
+ * Arguments:
+ *  char * line
+ *      the line you want to separate
+ *  char * delimiter
+ *      the character you want to separate line with
+ * 
+ * Returns:
+ *  char **
+ *      an array of strings after separating the line
+ * ***************************************************************/
+
 char ** parse_args(char * line, char * delimiter) {
     char ** parsed_args = calloc(5, sizeof(char **));
     char * p = line;
@@ -20,6 +34,16 @@ char ** parse_args(char * line, char * delimiter) {
     return parsed_args;
 }
 
+/*****************************************************************
+ * Prints the contents of an array (mainly used for debugging)
+ *
+ * Arguments:
+ *  char ** args
+ *      the array you want to print
+ * Returns:
+ *  nothing because its a print function
+ * ***************************************************************/
+
 void print_arr(char ** args) {
     int i = 0;
     while (args[i]) {
@@ -28,6 +52,16 @@ void print_arr(char ** args) {
     }
 }
 
+/*****************************************************************
+ * Handles commands with |. Redirects stdout from one program to
+ * stdin of the next
+ *
+ * Arguments:
+ *  char * plspipe
+ *      the command with | that will be run
+ * Returns:
+ *  nothing
+ * ***************************************************************/
 void piper(char * plspipe) {
     char** args = parse_args(plspipe, "|");
 
@@ -54,6 +88,16 @@ void piper(char * plspipe) {
     }
 }
 
+/*****************************************************************
+ * Handles commands with >. Redirects stdout to a file. If the file
+ * already has contents, those contents are erased.
+ *
+ * Arguments:
+ *  char * line
+ *      the command with > that will be run
+ * Returns:
+ *  nothing
+ * ***************************************************************/
 void output_redir(char * line) {
     char ** parts = parse_args(line, ">");
     int fd = open(parts[1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
@@ -64,6 +108,15 @@ void output_redir(char * line) {
     close(fd);
 }
 
+/*****************************************************************
+ * Handles commands with <. Executes command with redirected stdin from file.
+ *
+ * Arguments:
+ *  char * line
+ *      the command with < that will be run
+ * Returns:
+ *  nothing
+ * ***************************************************************/
 void input_redir(char * line) {
     char ** parts = parse_args(line, "<");
     int fd = open(parts[1], O_RDONLY);

@@ -8,7 +8,17 @@
 #include <string.h>
 #include "helpers.h"
 
-void okb_looping() {
+/******************************************************************
+ * Prompts user for commands and executes them accordingly.
+ * 
+ * Arguments:
+ *  None
+ *
+ * Return Value: 
+ *  integer, to comply with standard convention of a main function
+ * 
+ ******************************************************************/
+int main() {
     while(1){
         char * buff = malloc(sizeof(char) * 100);
         printf("oshkoshbogosh: ");
@@ -58,4 +68,5 @@ void okb_looping() {
         }
         free(buff);
     }
+    return 0;
 }
