@@ -6,8 +6,10 @@ By: Hui Min Wu Pd 10 Systems
 * Can run cd and exit
 * Input and output redirection with > and <
 * Single pipe
+* Displays hostname as prompt
 
-## Description of what features I attempted but were unsuccessful
+## Description of what features I attempted but were unsuccessful/still working on
+* Handling whitespace
 
 ## Bugs
 * grep function doesn't work
