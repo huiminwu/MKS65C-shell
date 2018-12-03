@@ -1,1 +1,1 @@
-void okb_looping();
+int main();
