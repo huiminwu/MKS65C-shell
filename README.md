@@ -1,4 +1,4 @@
-# MKS65C-shell
+# oSH koSH b'goSH
 By: Hui Min Wu Pd 10 Systems
 
 ## Features shell implements
