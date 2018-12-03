@@ -7,53 +7,6 @@
 #include <fcntl.h>
 #include <string.h>
 #include "helpers.h"
-#define READ 0
-#define WRITE 1
-void piper(char * plspipe) {
-    char** args = parse_args(plspipe, "|");
-
-    char** left = parse_args(args[0], " ");
-    char** right = parse_args(args[1], " ");
-    int fds[2];
-
-    int fork_val = fork();
-    if (fork_val == 0) {
-        pipe(fds);
-        fork_val = fork();
-        if (fork_val) {
-          close(fds[READ]);
-          dup2(fds[WRITE], STDOUT_FILENO);
-          execvp(left[0], left);
-        } else {
-          wait(NULL);
-          close(fds[WRITE]);
-          dup2(fds[READ], STDIN_FILENO);
-          execvp(right[0], right);
-        }
-    } else {
-        wait(NULL);
-    }
-}
-
-void output_redir(char * line) {
-    char ** parts = parse_args(line, ">");
-    int fd = open(parts[1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
-    dup(STDOUT_FILENO);
-    dup2(fd, STDOUT_FILENO);
-    char ** args = parse_args(parts[0], " ");
-    execvp(args[0], args);
-    close(fd);
-}
-
-void input_redir(char * line) {
-    char ** parts = parse_args(line, "<");
-    int fd = open(parts[1], O_RDONLY);
-    dup(STDIN_FILENO);
-    dup2(fd, STDIN_FILENO);
-    char ** args = parse_args(parts[0], " ");
-    execvp(args[0], args);
-    close(fd);
-}
 
 void okb_looping() {
     while(1){
@@ -84,7 +37,7 @@ void okb_looping() {
             } else { 
                 int fork_val = fork();
                 if (fork_val == 0) { //if child
-                    if(strchr(cmds[i], '>')) { //< is found
+                    if(strchr(cmds[i], '>')) {
                         output_redir(cmds[i]);
                     } else if (strchr(cmds[i], '<')) {
                         input_redir(cmds[i]);
