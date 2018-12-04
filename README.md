@@ -23,6 +23,7 @@ Example prompts that work:
 * grep function doesn't work (checked with classmates and it doesn't work for them as well so maybe it's not a bug)
 * In rare cases, you have to type "exit" a second time to exit
 * Whitespace of more than one space in between elements may break occasionally
+* In rare cases, not adding a semicolon to the last element of a chain of commands will stall the program
 * Does not handle commands with more than 100 characters
 
 ## Function Headers
