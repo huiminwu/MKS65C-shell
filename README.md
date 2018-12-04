@@ -1,6 +1,14 @@
 # oSH koSH b'goSH
 By: Hui Min Wu Pd 10 Systems
 
+Example prompts that work:
+
+```ls | wc ; ls -l ; ls > a.txt ; cat < a.txt ; ls -l ;```
+
+```(ten spaces)ls```
+
+```ls|wc; ls -l; ls > a.txt; cat<a.txt; ls -l ;```
+
 ## Features shell implements
 * Read, separate, and execute multiple commands in one line with ;
 * Can run cd and exit
@@ -12,11 +20,12 @@ By: Hui Min Wu Pd 10 Systems
 ## Description of what features I attempted but were unsuccessful/still working on
 
 ## Bugs
-* grep function doesn't work
+* grep function doesn't work (checked with classmates and it doesn't work for them as well so maybe it's not a bug)
 * In rare cases, you have to type "exit" a second time to exit
 * Whitespace of more than one space in between elements may break occasionally
 * Must have no spaces before or after ">", "<", or "|"
 * Does not handle commands with more than 100 characters
+* ; at the end sometimes seg faults
 
 ## Function Headers
 ### Headers in helpers.h
