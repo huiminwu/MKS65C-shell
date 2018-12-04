@@ -15,7 +15,7 @@ Example prompts that work:
 * Input and output redirection with > and <
 * Single pipe
 * Displays hostname as prompt
-* Can handle whitespace for singly spaced items.
+* Can handle whitespace for singly spaced items and sometimes more, but those cases are unidentitfied at the moment.
 
 ## Description of what features I attempted but were unsuccessful/still working on
 
@@ -23,9 +23,7 @@ Example prompts that work:
 * grep function doesn't work (checked with classmates and it doesn't work for them as well so maybe it's not a bug)
 * In rare cases, you have to type "exit" a second time to exit
 * Whitespace of more than one space in between elements may break occasionally
-* Must have no spaces before or after ">", "<", or "|"
 * Does not handle commands with more than 100 characters
-* ; at the end sometimes seg faults
 
 ## Function Headers
 ### Headers in helpers.h
