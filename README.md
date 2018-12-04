@@ -2,8 +2,11 @@
 By: Hui Min Wu Pd 10 Systems
 
 Example prompts that work:
+
 ```ls | wc ; ls -l ; ls > a.txt ; cat < a.txt ; ls -l ;```
-```          ls```
+
+```(ten spaces)ls```
+
 ```ls|wc; ls -l; ls > a.txt; cat<a.txt; ls -l ;```
 
 ## Features shell implements
