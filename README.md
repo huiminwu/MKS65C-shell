@@ -7,14 +7,14 @@ By: Hui Min Wu Pd 10 Systems
 * Input and output redirection with > and <
 * Single pipe
 * Displays hostname as prompt
+* Can handle whitespace for singly spaced items.
 
 ## Description of what features I attempted but were unsuccessful/still working on
-* Handling whitespace
 
 ## Bugs
 * grep function doesn't work
 * In rare cases, you have to type "exit" a second time to exit
-* Does not correct whitespace
+* Whitespace of more than one space in between elements may break occasionally
 * Must have no spaces before or after ">", "<", or "|"
 * Does not handle commands with more than 100 characters
 

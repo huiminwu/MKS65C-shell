@@ -6,6 +6,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <string.h>
+#include <ctype.h>
 #define READ 0
 #define WRITE 1
 
@@ -24,21 +25,25 @@
  * ***************************************************************/
 
 char ** parse_args(char * line, char * delimiter) {
-    char ** parsed_args = calloc(5, sizeof(char **));
+    char ** parsed_args = malloc(256*sizeof(char *));
     char * p = line;
     int index = 0;
     while(p != NULL) {
         parsed_args[index] = strsep(&p, delimiter);
+        char * arg = parsed_args[index];
+        //strip leading whitespace
+        while(*arg && isspace(*arg)) {
+            arg++;
+        }
+        int end = strlen(arg) - 1;
+        while(arg[end] == ' ' ){
+            end--;
+        }
+        arg[end+1] = 0; //add an end to the phrase
+        parsed_args[index] = arg;
         index++; 
     }
-    int i = 0;
-    while(parsed_args[i]) {
-        while(parsed_args[strlen(parsed_args[i]) - 1] == ' ') {
-            //strip end
-        }
-        //strin white space off end
-        i++;
-    }
+    
     return parsed_args;
 }
 
