@@ -1,9 +1,11 @@
 # oSH koSH b'goSH
 By: Hui Min Wu Pd 10 Systems
 
-Example prompts:
-> ls|wc;ls -l;ls>a.txt;cat<a.txt
-> ls -l;
+Example prompts that work:
+```ls | wc ; ls -l ; ls > a.txt ; cat < a.txt ; ls -l ;```
+```          ls```
+```ls|wc; ls -l; ls > a.txt; cat<a.txt; ls -l ;```
+
 ## Features shell implements
 * Read, separate, and execute multiple commands in one line with ;
 * Can run cd and exit
