@@ -21,9 +21,7 @@
 int main() {
     while(1){
         char * buff = malloc(sizeof(char) * 100);
-        char hostname[256];
-        gethostname(hostname, 255);
-        printf("%s: ", hostname);
+        //printf("");
         fgets(buff, 100, stdin);
 
         char * c = buff;
